@@ -17,12 +17,13 @@ public class EmailTest {
     public String sendEmail(ScheduledEvent scheduledEvent, Context context) {
         List<String> destinationAddresses = new ArrayList<String>();
         destinationAddresses.add("daniel.nwankwo74@gmail.com");
+        destinationAddresses.add("danbeks74@gmail.com");
         String from = "admin@nigeriachristian.com";
         AmazonSimpleEmailService client = null;
 
         /*subject*/
         Content content = new Content();
-        String bodyMessage = "This is from a lambda function";
+        String bodyMessage = MessageBody.getBody();
         content.setData(bodyMessage);
         Body body = new Body();
         body.setHtml(content);
@@ -50,7 +51,7 @@ public class EmailTest {
             }
 
             client.sendEmail(request); // this is where the exception is thrown
-            System.out.println("Email sent!");
+            System.out.println("Email   sent!");
         } catch (Exception ex) {
             ex.printStackTrace();
             System.err.println(ex.getMessage());
