@@ -1,5 +1,19 @@
 package com.rave.emailer;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.S3Object;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
+
 /**
  * Created by Useradmin on 23/06/2017.
  */
@@ -94,5 +108,118 @@ public class MessageBody {
                 "        </table>\n" +
                 "    </body>\n" +
                 "</html>";
+    }
+
+    public String getMessage(String fileName){
+        Stream<String> fileStream = null;
+        StringBuilder contents = new StringBuilder();
+        try {
+            URI uri = getClass().getClassLoader().getResource(fileName).toURI();
+            fileStream = Files.lines(Paths.get(uri));
+            System.out.println("Inside getMessage() -- printing contents");
+            fileStream.forEach(s -> System.out.println(s));
+//            fileStream.forEach(s -> contents.append(s.toString()));
+        } catch (IOException e) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (StackTraceElement stackElement : e.getStackTrace()) {
+                stringBuilder.append(stackElement.toString());
+                stringBuilder.append("\n");
+            }
+            System.out.println(stringBuilder.toString());
+        } catch (URISyntaxException e) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (StackTraceElement stackElement : e.getStackTrace()) {
+                stringBuilder.append(stackElement.toString());
+                stringBuilder.append("\n");
+            }
+            System.out.println(stringBuilder.toString());
+        } catch (Exception e) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (StackTraceElement stackElement : e.getStackTrace()) {
+                stringBuilder.append(stackElement.toString());
+                stringBuilder.append("\n");
+            }
+            System.out.println(stringBuilder.toString());
+        }
+        return contents.toString();
+    }
+
+    public String getMessage2(String fileName){
+        Stream<String> fileStream = null;
+        StringBuilder contents = new StringBuilder();
+        try {
+            System.out.println("Try to get class laoder");
+            ClassLoader cl = ClassLoader.getSystemClassLoader();
+            if (cl == null) {
+                System.out.println("Class loader is NULL");
+            }else{
+                System.out.println("Class loader is NOT NULL");
+            }
+            System.out.println("try to get input stream");
+            InputStream inputStream = cl.getResourceAsStream(fileName);
+            System.out.println("Input Stream GOT");
+            if (inputStream == null) {
+                System.out.println("Input Stream is null");
+            }else{
+                System.out.println("Is NOT NULL inputstream");
+            }
+
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream));
+            fileStream =  buffer.lines();
+
+            /*
+            URI uri = cl.getSystemResource(fileName).toURI();
+            if (uri == null) {
+                System.out.println("URI is NULL");
+            }else{
+                System.out.println("URI is NOT NULL");
+                System.out.println(uri.toString());
+            }
+            fileStream = Files.lines(Paths.get(uri));*/
+            System.out.println("Inside getMessage() -- printing contents");
+            fileStream.forEach(s -> System.out.println(s));
+//            fileStream.forEach(s -> contents.append(s.toString()));
+        } /*catch (IOException e) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (StackTraceElement stackElement : e.getStackTrace()) {
+                stringBuilder.append(stackElement.toString());
+                stringBuilder.append("\n");
+            }
+            System.out.println(stringBuilder.toString());
+        } catch (URISyntaxException e) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (StackTraceElement stackElement : e.getStackTrace()) {
+                stringBuilder.append(stackElement.toString());
+                stringBuilder.append("\n");
+            }
+            System.out.println(stringBuilder.toString());
+        }*/ catch (Exception e) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (StackTraceElement stackElement : e.getStackTrace()) {
+                stringBuilder.append(stackElement.toString());
+                stringBuilder.append("\n");
+            }
+            System.out.println("Exception in Message2\n");
+            System.out.println(e.getMessage());
+            System.out.println(stringBuilder.toString());
+        }
+        return contents.toString();
+    }
+
+    public  String getMessage3(String filename){
+        Stream<String> fileStream = null;
+        StringBuilder contents = new StringBuilder();
+
+        AmazonS3 client = new AmazonS3Client();
+        S3Object xFile = client.getObject("senegy_software_solution",
+                "ved.keeper.vehicle.registration.tpl.html");
+        InputStream inputStream = xFile.getObjectContent();
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream));
+
+        fileStream =  buffer.lines();
+
+//        fileStream.forEach(s -> System.out.println(s));
+        fileStream.forEach(s -> contents.append(s.toString()));
+        return contents.toString();
     }
 }
