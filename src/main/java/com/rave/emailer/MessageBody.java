@@ -3,6 +3,7 @@ package com.rave.emailer;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.S3Object;
+import org.apache.commons.lang.text.StrSubstitutor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +13,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 /**
@@ -20,7 +23,7 @@ import java.util.stream.Stream;
 public class MessageBody {
     private String body = "";
 
-    public static String getBody(){
+    public static String getBody() {
         return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
                 "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
                 "    <head>\n" +
@@ -110,7 +113,7 @@ public class MessageBody {
                 "</html>";
     }
 
-    public String getMessage(String fileName){
+    public String getMessage(String fileName) {
         Stream<String> fileStream = null;
         StringBuilder contents = new StringBuilder();
         try {
@@ -144,7 +147,7 @@ public class MessageBody {
         return contents.toString();
     }
 
-    public String getMessage2(String fileName){
+    public String getMessage2(String fileName) {
         Stream<String> fileStream = null;
         StringBuilder contents = new StringBuilder();
         try {
@@ -152,7 +155,7 @@ public class MessageBody {
             ClassLoader cl = ClassLoader.getSystemClassLoader();
             if (cl == null) {
                 System.out.println("Class loader is NULL");
-            }else{
+            } else {
                 System.out.println("Class loader is NOT NULL");
             }
             System.out.println("try to get input stream");
@@ -160,12 +163,12 @@ public class MessageBody {
             System.out.println("Input Stream GOT");
             if (inputStream == null) {
                 System.out.println("Input Stream is null");
-            }else{
+            } else {
                 System.out.println("Is NOT NULL inputstream");
             }
 
             BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream));
-            fileStream =  buffer.lines();
+            fileStream = buffer.lines();
 
             /*
             URI uri = cl.getSystemResource(fileName).toURI();
@@ -179,21 +182,7 @@ public class MessageBody {
             System.out.println("Inside getMessage() -- printing contents");
             fileStream.forEach(s -> System.out.println(s));
 //            fileStream.forEach(s -> contents.append(s.toString()));
-        } /*catch (IOException e) {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (StackTraceElement stackElement : e.getStackTrace()) {
-                stringBuilder.append(stackElement.toString());
-                stringBuilder.append("\n");
-            }
-            System.out.println(stringBuilder.toString());
-        } catch (URISyntaxException e) {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (StackTraceElement stackElement : e.getStackTrace()) {
-                stringBuilder.append(stackElement.toString());
-                stringBuilder.append("\n");
-            }
-            System.out.println(stringBuilder.toString());
-        }*/ catch (Exception e) {
+        } catch (Exception e) {
             StringBuilder stringBuilder = new StringBuilder();
             for (StackTraceElement stackElement : e.getStackTrace()) {
                 stringBuilder.append(stackElement.toString());
@@ -206,20 +195,34 @@ public class MessageBody {
         return contents.toString();
     }
 
-    public  String getMessage3(String filename){
+    public static String getMessage3(String filename) {
         Stream<String> fileStream = null;
         StringBuilder contents = new StringBuilder();
 
         AmazonS3 client = new AmazonS3Client();
-        S3Object xFile = client.getObject("senegy_software_solution",
-                "ved.keeper.vehicle.registration.tpl.html");
+        S3Object xFile = client.getObject(StaticResources.S3_BUCKET_NAME,
+                filename);
         InputStream inputStream = xFile.getObjectContent();
         BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream));
 
-        fileStream =  buffer.lines();
-
-//        fileStream.forEach(s -> System.out.println(s));
+        fileStream = buffer.lines();
         fileStream.forEach(s -> contents.append(s.toString()));
         return contents.toString();
+    }
+
+    public static String passwordResetEmailTemplateResolver(String template,
+                                                            String crestImagePath,
+                                                            String crownImagePath,
+                                                            String resetHref
+                                                            ) {
+        Map valuesMap = new HashMap();
+        valuesMap.put("registration.crestImage", crestImagePath);
+        valuesMap.put("registration.headerImage", crownImagePath);
+        valuesMap.put("password.reset.href", resetHref);
+        valuesMap.put("registration.date", "29th June 2017");
+
+        String templateString = "The ${animal} jumped over the ${target}.";
+        StrSubstitutor sub = new StrSubstitutor(valuesMap);
+        return sub.replace(template);
     }
 }

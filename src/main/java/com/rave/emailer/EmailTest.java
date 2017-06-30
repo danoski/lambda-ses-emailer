@@ -28,11 +28,12 @@ public class EmailTest {
         /*subject*/
         Content content = new Content();
         MessageBody messageBody = new MessageBody();
-//        String bodyMessage = messageBody.getMessage("ved.keeper.vehicle.registration.tpl.html");
-        String bodyMessage = templateResolver(messageBody.getMessage3("ved.keeper.vehicle.registration.tpl.html"));
-        System.out.println("**The body message**\n");
-        System.out.println(bodyMessage);
-        System.out.println("**\nEnd body message**");
+        String bodyMessage = MessageBody.getMessage3(StaticResources.PASSWORD_RESET_FILENAME);
+        bodyMessage = MessageBody.passwordResetEmailTemplateResolver(bodyMessage,
+                StaticResources.CREST_IMAGE_PATH,
+                StaticResources.CROWN_IMAGE_PATH,
+                StaticResources.RESET_HREF);
+
         content.setData(bodyMessage);
         Body body = new Body();
         body.setHtml(content);
@@ -69,14 +70,5 @@ public class EmailTest {
         return "done";
     }
 
-    private String templateResolver(String template){
-        Map valuesMap = new HashMap();
-        valuesMap.put("registration.number", "W44 WWW");
-        valuesMap.put("registration.date", "29th June 2017");
-        valuesMap.put("registration.crestImage", "https://s3.amazonaws.com/senegy_software_solution/bis_crest_27px_x2.png");
-        valuesMap.put("registration.headerImage", "https://s3.amazonaws.com/senegy_software_solution/hmrc_crest_27px_x2.png");
-        String templateString = "The ${animal} jumped over the ${target}.";
-        StrSubstitutor sub = new StrSubstitutor(valuesMap);
-        return sub.replace(template);
-    }
+
 }
