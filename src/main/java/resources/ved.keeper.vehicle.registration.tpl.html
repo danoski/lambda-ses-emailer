@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body>
-<table width="100%" style="line-height: 24px; text: #0B0C0C;font-family:Helvetica Neue, sans-serif, Verdana;font-size: 17px">
+<table width="100%"
+       style="line-height: 24px; text: #0B0C0C; font-size: 17px;
+       font-family: Helvetica Neue, sans-serif, Arial">
     <tr>
         <td colspan=3 style="background-color:black; height: 30px">
             <table width="100%">
@@ -17,8 +18,10 @@
                         <table>
                             <tr>
                                 <td>
-                                    <img alt="gov uk crown" align="middle" style="width:40px; height:35px"
-                                         src="${registration.headerImage}"/>
+                                    <img alt="gov uk crown" align="middle" style="width:40px; height:35px" src="${registration.headerImage}"/>
+                                </td>
+                                <td valign="middle">
+                                    <span style="color:white; font-size:24px;">GOV.UK</span>
                                 </td>
                             </tr>
                         </table>
@@ -37,14 +40,19 @@
                     <td>
                         <table>
                             <tr>
+                                <td style="width: 1px; background-color: #1E7F22">
+                                </td>
                                 <td>
                                     <img alt="gov uk crest" align="middle" style="width:40px; height:35px" src="${registration.crestImage}"/>
+                                </td>
+                                <td valign="middle">
+                                    <span style="font-size:24px;">Driver and Vehicle Licencing Agency</span>
                                 </td>
                             </tr>
                         </table>
 
                         <br/>
-                        <p><h1>dans Confirmation of vehicle registration</h1></p>
+                        <p><h1>Confirmation of vehicle registration</h1></p>
 
 
 
@@ -70,7 +78,7 @@
                                                 text-transform: uppercase;
                                                 width:5em;
                                                 text-align: center;
-                                                margin-bottom:0.9em;">${registration.number}</span></b>
+                                                margin-bottom:0.9em;">${registration.name}</span></b>
                                 </td>
                             </tr>
                         </table>
@@ -96,19 +104,19 @@
                                     <br/>
                                     <b>${retailer.address.line3}</b>
                                     <br/>
-                                    <b>${retailer.address.line4}</b>
+                                    <b>${retailer.address.town}</b>
                                     <br/>
-                                    <b>${retailer.address.line5}</b>
+                                    <b>${retailer.address.county}</b>
                                     <br/>
-                                    <b>${retailer.address.line6}</b>
+                                    <b>${retailer.address.postcode}</b>
                                 </td>
                             </tr>
                         </table>
 
                         <p>You can use your vehicle from the date shown above and should receive your new V5C registration certificate (logbook)
                             within 2 weeks from that date.</p>
-                        <p>If you're not the registered keeper or have any queries, you can contact DVLA on 0300 7906802 or by visiting
-                            <a href="https://www.gov.uk/contact-the-dvla" target="_top">https://www.gov.uk/contact-the-dvla</a></p>
+                        <p>If you're not the registered keeper or have any queries, you can contact DVLA on 0300 7906802 or by email
+                            <a href="mailto:email.example@dvla.co.uk" target="_top">example@dvla.co.uk</a></p>
                         <br/>
 
                         <p>Yours sincerely</p>
@@ -129,5 +137,4 @@
         <td width="20%"></td>
     </tr>
 </table>
-</body>
 </html>

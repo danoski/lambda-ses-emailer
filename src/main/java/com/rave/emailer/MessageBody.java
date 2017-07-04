@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -17,7 +18,32 @@ import java.util.stream.Stream;
  */
 public class MessageBody {
 
-    public static String getMessage3(String filename) {
+    public static String getVehicleRegistrationMessage(String filename) {
+        String template = MessageBody.getMessageTemplate(filename);
+        return MessageBody.VehicleRegistrationTemplateResolver(template,
+                StaticResources.CREST_IMAGE_PATH,
+                StaticResources.CROWN_IMAGE_PATH,
+                StaticResources.REG_NAME,
+                StaticResources.REG_DATE,
+                StaticResources.RETAILER_NAME,
+                StaticResources.RETAILER_ADDR_1,
+                StaticResources.RETAILER_ADDR_2,
+                StaticResources.RETAILER_ADDR_3,
+                StaticResources.RETAILER_TOWN,
+                StaticResources.RETAILER_COUNTY,
+                StaticResources.RETAILER_POSTCODE
+                );
+    }
+
+    public static String getPasswordResetMessage(String filename) {
+        String template = MessageBody.getMessageTemplate(filename);
+        return MessageBody.passwordResetEmailTemplateResolver(template,
+                StaticResources.CREST_IMAGE_PATH,
+                StaticResources.CROWN_IMAGE_PATH,
+                StaticResources.RESET_HREF);
+    }
+
+    public static String getMessageTemplate(String filename){
         Stream<String> fileStream = null;
         StringBuilder contents = new StringBuilder();
 
@@ -29,7 +55,8 @@ public class MessageBody {
 
         fileStream = buffer.lines();
         fileStream.forEach(s -> contents.append(s.toString()));
-        return contents.toString();
+        Optional<String> optionalString = Optional.ofNullable(contents.toString());
+        return optionalString.map(String::toString).orElse("");
     }
 
     public static String passwordResetEmailTemplateResolver(String template,
@@ -43,7 +70,36 @@ public class MessageBody {
         valuesMap.put("password.reset.href", resetHref);
         valuesMap.put("registration.date", "29th June 2017");
 
-        String templateString = "The ${animal} jumped over the ${target}.";
+        StrSubstitutor sub = new StrSubstitutor(valuesMap);
+        return sub.replace(template);
+    }
+
+    public static String VehicleRegistrationTemplateResolver(String template,
+                                                            String crestImagePath,
+                                                            String crownImagePath,
+                                                            String name,
+                                                             String date,
+                                                             String retailerName,
+                                                             String address1,
+                                                             String address2,
+                                                             String address3,
+                                                             String town,
+                                                             String county,
+                                                             String postcode
+                                                            ) {
+        Map valuesMap = new HashMap();
+        valuesMap.put("registration.crestImage", crestImagePath);
+        valuesMap.put("registration.headerImage", crownImagePath);
+        valuesMap.put("registration.name", name);
+        valuesMap.put("registration.date", date);
+        valuesMap.put("retailer.name", retailerName);
+        valuesMap.put("retailer.address.line1", address1);
+        valuesMap.put("retailer.address.line2", address2);
+        valuesMap.put("retailer.address.line3", address3);
+        valuesMap.put("retailer.address.town", town);
+        valuesMap.put("retailer.address.county", county);
+        valuesMap.put("retailer.address.postcode", postcode);
+
         StrSubstitutor sub = new StrSubstitutor(valuesMap);
         return sub.replace(template);
     }
