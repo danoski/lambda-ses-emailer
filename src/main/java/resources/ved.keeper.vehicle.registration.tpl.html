@@ -7,7 +7,7 @@
 </head>
 
 <table width="100%"
-       style="line-height: 24px; text: #0B0C0C; font-size: 17px;
+       style="text: #0B0C0C; font-size: 17px;
        font-family: Helvetica Neue, sans-serif, Arial">
     <tr>
         <td colspan=3 style="background-color:black; height: 30px">
@@ -20,8 +20,12 @@
                                 <td>
                                     <img alt="gov uk crown" align="middle" style="width:40px; height:35px" src="${registration.headerImage}"/>
                                 </td>
-                                <td valign="middle">
-                                    <span style="color:white; font-size:24px;">GOV.UK</span>
+                                <td valign="middle" align="center">
+                                    <div style="color: white; font-weight:bold;font-size: 27px;
+                                    text-decoration: none;padding-left: 5px">
+                                        <a rel="nofollow" style="color: white; font-weight:bold;font-size: 27px;
+                                    text-decoration: none">GOV.UK</a>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
@@ -40,7 +44,9 @@
                     <td>
                         <table>
                             <tr>
-                                <td style="width: 1px; background-color: #1E7F22">
+                                <td>
+                                    <!--#1E7F22-->
+                                    <div style="height: 40px;width: 4px;background-color:#066666"></div>
                                 </td>
                                 <td>
                                     <img alt="gov uk crest" align="middle" style="width:40px; height:35px" src="${registration.crestImage}"/>
@@ -59,9 +65,7 @@
                         <p>Congratulations, your car retailer has told DVLA that you are now the registered keeper of this new vehicle:</p>
                         <br/>
 
-                        <hr/>
-
-
+                        <div style="background-color: #d7d7d7; margin-top: 10px; margin-bottom: 10px;height: 2px; width: 100%"></div>
                     </td>
                 </tr>
                 <tr>
@@ -74,25 +78,29 @@
                                                 background-color: #FFD307;
                                                 border: 0.13em solid #333;
                                                 padding: 0.33em 0.4em 0.33em 0.5em;
-                                                border-radius: 0.25em;
                                                 text-transform: uppercase;
                                                 width:5em;
                                                 text-align: center;
                                                 margin-bottom:0.9em;">${registration.name}</span></b>
                                 </td>
                             </tr>
-                        </table>
-                        <hr/>
-                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <div style="background-color: #d7d7d7; margin-top: 10px; margin-bottom: 10px;height: 2px; width: 100%"></div>
+                                </td>
+                            </tr>
+
                             <tr>
                                 <td width="30%">Date of registration:</td>
                                 <td width="70%">
                                     <b>${registration.date}</b>
                                 </td>
                             </tr>
-                        </table>
-                        <hr/>
-                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <div style="background-color: #d7d7d7; margin-top: 10px; margin-bottom: 10px;height: 2px; width: 100%"></div>
+                                </td>
+                            </tr>
                             <tr>
                                 <td valign="top" width="30%">Registered by:</td>
                                 <td valign="top" width="70%">
@@ -111,7 +119,44 @@
                                     <b>${retailer.address.postcode}</b>
                                 </td>
                             </tr>
+
                         </table>
+
+
+
+                       <!-- <table width="100%">
+                            <tr>
+                                <td width="30%">Date of registration:</td>
+                                <td width="70%">
+                                    <b>${registration.date}</b>
+                                </td>
+                            </tr>
+                        </table>-->
+<!--
+
+                        <div style="background-color: #d7d7d7; margin-top: 10px; margin-bottom: 10px;height: 2px; width: 100%"></div>
+-->
+
+                        <!--<table width="100%">
+                            <tr>
+                                <td valign="top" width="30%">Registered by:</td>
+                                <td valign="top" width="70%">
+                                    <b>${retailer.name}</b>
+                                    <br/>
+                                    <b>${retailer.address.line1}</b>
+                                    <br/>
+                                    <b>${retailer.address.line2}</b>
+                                    <br/>
+                                    <b>${retailer.address.line3}</b>
+                                    <br/>
+                                    <b>${retailer.address.town}</b>
+                                    <br/>
+                                    <b>${retailer.address.county}</b>
+                                    <br/>
+                                    <b>${retailer.address.postcode}</b>
+                                </td>
+                            </tr>
+                        </table>-->
 
                         <p>You can use your vehicle from the date shown above and should receive your new V5C registration certificate (logbook)
                             within 2 weeks from that date.</p>
@@ -125,7 +170,7 @@
 
                         <br/>
 
-                        <hr/>
+                        <div style="background-color: #d7d7d7; margin-top: 25px; margin-bottom: 25px;height: 2px; width: 100%"></div>
 
                         <p style="color: #6f777b;;">This is an automated email. Please do not reply, as we can't respond to emails received at this address.</p>
 
