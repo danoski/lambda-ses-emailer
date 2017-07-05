@@ -65,27 +65,45 @@
                         <p>Congratulations, your car retailer has told DVLA that you are now the registered keeper of this new vehicle:</p>
                         <br/>
 
-                        <div style="background-color: #d7d7d7; margin-top: 10px; margin-bottom: 10px;height: 2px; width: 100%"></div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <table width="100%">
                             <tr>
+                                <td colspan="2">
+                                    <div style="background-color: #d7d7d7; margin-top: 10px; margin-bottom: 10px;height: 2px; width: 100%"></div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td width="30%">Registration mark:</td>
                                 <td width="70%">
-                                    <b><span style="font:1.3em;
+                                    <!--<b><span style="font:1.3em;
                                                 background-color: #FFD307;
                                                 border: 0.13em solid #333;
                                                 padding: 0.33em 0.4em 0.33em 0.5em;
                                                 text-transform: uppercase;
                                                 width:5em;
                                                 text-align: center;
-                                                margin-bottom:0.9em;">${registration.name}</span></b>
+                                                margin-bottom:0.9em;">${registration.name}</span></b>-->
+
+                                    <div
+                                            style="
+                                                background-color: #FFD307;
+                                                border: 2px solid #333;
+                                                padding: 8px 5px 3px 5px;
+                                                text-transform: uppercase;
+                                                width:100px;
+                                                height:25px;
+                                                text-align: center;
+                                                "
+                                    >
+                                        <div style="font-weight:bold">${registration.name}</div>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td colspan="2">
                                     <div style="background-color: #d7d7d7; margin-top: 10px; margin-bottom: 10px;height: 2px; width: 100%"></div>
                                 </td>
                             </tr>
@@ -97,7 +115,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td colspan="2">
                                     <div style="background-color: #d7d7d7; margin-top: 10px; margin-bottom: 10px;height: 2px; width: 100%"></div>
                                 </td>
                             </tr>
@@ -122,49 +140,18 @@
 
                         </table>
 
-
-
-                       <!-- <table width="100%">
-                            <tr>
-                                <td width="30%">Date of registration:</td>
-                                <td width="70%">
-                                    <b>${registration.date}</b>
-                                </td>
-                            </tr>
-                        </table>-->
-<!--
-
-                        <div style="background-color: #d7d7d7; margin-top: 10px; margin-bottom: 10px;height: 2px; width: 100%"></div>
--->
-
-                        <!--<table width="100%">
-                            <tr>
-                                <td valign="top" width="30%">Registered by:</td>
-                                <td valign="top" width="70%">
-                                    <b>${retailer.name}</b>
-                                    <br/>
-                                    <b>${retailer.address.line1}</b>
-                                    <br/>
-                                    <b>${retailer.address.line2}</b>
-                                    <br/>
-                                    <b>${retailer.address.line3}</b>
-                                    <br/>
-                                    <b>${retailer.address.town}</b>
-                                    <br/>
-                                    <b>${retailer.address.county}</b>
-                                    <br/>
-                                    <b>${retailer.address.postcode}</b>
-                                </td>
-                            </tr>
-                        </table>-->
-
+                        <br/>
+                        <br/>
                         <p>You can use your vehicle from the date shown above and should receive your new V5C registration certificate (logbook)
-                            within 2 weeks from that date.</p>
+                        within 2 weeks from that date.</p>
+                        <br/>
                         <p>If you're not the registered keeper or have any queries, you can contact DVLA on 0300 7906802 or by email
-                            <a href="mailto:email.example@dvla.co.uk" target="_top">example@dvla.co.uk</a></p>
+                            <a href="mailto:vedrtest@gmail.com" target="_top">vedrtest@gmail.com</a></p>
+                        <br/>
                         <br/>
 
                         <p>Yours sincerely</p>
+                        <br/>
                         <p><b>Rohan Gye</b></p>
                         <p>Vehicles Service Manager</p>
 

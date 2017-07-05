@@ -35,6 +35,16 @@ public class MessageBody {
                 );
     }
 
+    public static String getUserRegistrationMessage(String filename) {
+        String template = MessageBody.getMessageTemplate(filename);
+        return MessageBody.UserRegistrationTemplateResolver(template,
+                StaticResources.CREST_IMAGE_PATH,
+                StaticResources.CROWN_IMAGE_PATH,
+                StaticResources.REG_NAME,
+                StaticResources.USERREG_USER_NAME
+                );
+    }
+
     public static String getPasswordResetMessage(String filename) {
         String template = MessageBody.getMessageTemplate(filename);
         return MessageBody.passwordResetEmailTemplateResolver(template,
@@ -99,6 +109,22 @@ public class MessageBody {
         valuesMap.put("retailer.address.town", town);
         valuesMap.put("retailer.address.county", county);
         valuesMap.put("retailer.address.postcode", postcode);
+
+        StrSubstitutor sub = new StrSubstitutor(valuesMap);
+        return sub.replace(template);
+    }
+
+    public static String UserRegistrationTemplateResolver(String template,
+                                                            String crestImagePath,
+                                                            String crownImagePath,
+                                                            String name,
+                                                             String userName
+                                                            ) {
+        Map valuesMap = new HashMap();
+        valuesMap.put("registration.crestImage", crestImagePath);
+        valuesMap.put("registration.headerImage", crownImagePath);
+        valuesMap.put("registration.name", name);
+        valuesMap.put("registration.username", userName);
 
         StrSubstitutor sub = new StrSubstitutor(valuesMap);
         return sub.replace(template);

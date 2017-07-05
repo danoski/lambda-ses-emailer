@@ -13,13 +13,16 @@ import java.util.List;
  */
 public class EmailTest {
     public String start(ScheduledEvent scheduledEvent, Context context) {
-        int task = 2;
+        int task = 3;
         switch (task) {
             case 1:
                 sendMailForPasswordReset();
                 break;
             case 2:
                 sendMailForVehicleRegistration();
+                break;
+            case 3:
+                sendMailForUserRegistration();
                 break;
             default:
                 sendMailForPasswordReset();
@@ -28,29 +31,30 @@ public class EmailTest {
     }
 
     private void sendMailForPasswordReset(){
-        List<String> destinationAddresses = new ArrayList<String>();
-        destinationAddresses.add("dan_nwankwo@yahoo.co.uk");
-        destinationAddresses.add("danbeks74@gmail.com");
-        destinationAddresses.add("danoski74@hotmail.com");
-        String from = "admin@nigeriachristian.com";
+        String from = "dan_nwankwo@yahoo.co.uk";
 
         String messageBody = MessageBody.getPasswordResetMessage(StaticResources.PASSWORD_RESET_FILENAME);
         String subject = "Email sending test";
         Message message = buildMessageObjectForMail(subject, messageBody);
-        sendMail(from,destinationAddresses,message);
+        getEmailToList().forEach(to -> sendMail(from,to,message));
     }
 
     private void sendMailForVehicleRegistration(){
-        List<String> destinationAddresses = new ArrayList<String>();
-        destinationAddresses.add("dan_nwankwo@yahoo.co.uk");
-        destinationAddresses.add("danbeks74@gmail.com");
-        destinationAddresses.add("danoski74@hotmail.com");
-        String from = "admin@nigeriachristian.com";
+        String from = "dan_nwankwo@yahoo.co.uk";
 
         String messageBody = MessageBody.getVehicleRegistrationMessage(StaticResources.VEHICLE_REGISTRATION_FILENAME);
         String subject = "Email sending test vehicle reg email";
         Message message = buildMessageObjectForMail(subject, messageBody);
-        sendMail(from,destinationAddresses,message);
+        getEmailToList().forEach(to -> sendMail(from,to,message));
+    }
+
+    private void sendMailForUserRegistration() {
+        String from = "admin@britishchristian.com";
+
+        String messageBody = MessageBody.getUserRegistrationMessage(StaticResources.USER_REGISTRATION_FILENAME);
+        String subject = "User registration email";
+        Message message = buildMessageObjectForMail(subject, messageBody);
+        getEmailToList().forEach(to -> sendMail(from, to, message));
     }
 
     private Message buildMessageObjectForMail(String subject, String messageBody){
@@ -74,10 +78,12 @@ public class EmailTest {
         return body;
     }
 
-    private void sendMail(String from,List<String>to,Message message){
+    private void sendMail(String from,String to,Message message){
         AmazonSimpleEmailService client = null;
+        List<String> t = new ArrayList<>();
+        t.add(to);
         SendEmailRequest request = new SendEmailRequest().withSource(from)
-                .withDestination(new Destination(to))
+                .withDestination(new Destination(t))
                 .withMessage(message);
 
         try {
@@ -93,5 +99,12 @@ public class EmailTest {
         }
     }
 
-
+    private List<String> getEmailToList(){
+        List<String> destinationAddresses = new ArrayList<String>();
+        destinationAddresses.add("dan_nwankwo@yahoo.co.uk");
+        destinationAddresses.add("danbeks74@gmail.com");
+        destinationAddresses.add("danoski74@hotmail.com");
+//        destinationAddresses.add("vedrtest@gmail.com");
+        return destinationAddresses;
+    }
 }
