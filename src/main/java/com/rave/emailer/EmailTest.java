@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class EmailTest {
     public String start(ScheduledEvent scheduledEvent, Context context) {
-        int task = 3;
+        int task = 2;
         switch (task) {
             case 1:
                 sendMailForPasswordReset();
@@ -40,10 +40,10 @@ public class EmailTest {
     }
 
     private void sendMailForVehicleRegistration(){
-        String from = "dan_nwankwo@yahoo.co.uk";
+        String from = "admin@nigeriachristian.com";
 
         String messageBody = MessageBody.getVehicleRegistrationMessage(StaticResources.VEHICLE_REGISTRATION_FILENAME);
-        String subject = "Email sending test vehicle reg email";
+        String subject = "Vehicle registration template test";
         Message message = buildMessageObjectForMail(subject, messageBody);
         getEmailToList().forEach(to -> sendMail(from,to,message));
     }
