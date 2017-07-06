@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class EmailTest {
     public String start(ScheduledEvent scheduledEvent, Context context) {
-        int task = 3;
+        int task = 1;
         switch (task) {
             case 1:
                 sendMailForPasswordReset();
@@ -31,7 +31,7 @@ public class EmailTest {
     }
 
     private void sendMailForPasswordReset(){
-        String from = "dan_nwankwo@yahoo.co.uk";
+        String from = "admin@britishchristian.com";
 
         String messageBody = MessageBody.getPasswordResetMessage(StaticResources.PASSWORD_RESET_FILENAME);
         String subject = "Email sending test";
