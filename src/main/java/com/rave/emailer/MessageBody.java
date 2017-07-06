@@ -41,7 +41,8 @@ public class MessageBody {
                 StaticResources.CREST_IMAGE_PATH,
                 StaticResources.CROWN_IMAGE_PATH,
                 StaticResources.REG_NAME,
-                StaticResources.USERREG_USER_NAME
+                StaticResources.USERREG_USER_NAME,
+                StaticResources.RESET_HREF
                 );
     }
 
@@ -118,13 +119,16 @@ public class MessageBody {
                                                             String crestImagePath,
                                                             String crownImagePath,
                                                             String name,
-                                                             String userName
+                                                             String userName,
+                                                             String passwordUrl
                                                             ) {
         Map valuesMap = new HashMap();
         valuesMap.put("registration.crestImage", crestImagePath);
         valuesMap.put("registration.headerImage", crownImagePath);
         valuesMap.put("registration.name", name);
         valuesMap.put("registration.username", userName);
+        valuesMap.put("registration.passwordGenerationUrl", passwordUrl);
+
 
         StrSubstitutor sub = new StrSubstitutor(valuesMap);
         return sub.replace(template);
