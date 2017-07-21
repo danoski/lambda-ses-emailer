@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class EmailTest {
     public String start(ScheduledEvent scheduledEvent, Context context) {
-        int task = 1;
+        int task = 3;
         switch (task) {
             case 1:
                 sendMailForPasswordReset();
